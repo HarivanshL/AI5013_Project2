@@ -75,7 +75,31 @@ class ReflexAgent(Agent):
         newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
 
         "*** YOUR CODE HERE ***"
-        return successorGameState.getScore()
+        food_list = newFood.asList()
+        if not food_list:
+            return float("inf")
+        # distance from the closest food to pacman
+        min_food_distance = min(manhattanDistance(newPos, food) for food in food_list)
+
+        # distance from the closest ghost to pacman
+        min_ghost_distance = min(manhattanDistance(newPos, ghost.getPosition()) for ghost in newGhostStates)
+
+        # if pacman is too close to dangereous ghost, give penalty
+        if min_ghost_distance < 3 and newScaredTimes == 0:
+            return -float("inf")
+        
+        newCapsules = successorGameState.getCapsules()
+        # distance from the closest capsule to pacman
+        min_capsule_distance = 0
+        if newCapsules:
+            min_capsule_distance = min(manhattanDistance(newPos, capsule) for capsule in newCapsules)
+
+        return (successorGameState.getScore()
+                - min_food_distance * 2 # smaller distance from food is better
+                + min_ghost_distance * (0.5 if newScaredTimes == 0 else 2) # larger distance from ghost is better. if ghost is scared add more score
+                - len(food_list) * 20 # make pacman eat food actively when there is a few food left
+                - min_capsule_distance * 5 # smaller distance from capsule is better
+                )
 
 def scoreEvaluationFunction(currentGameState: GameState):
     """

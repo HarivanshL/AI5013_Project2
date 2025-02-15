@@ -1,10 +1,25 @@
 Please Enter your team's full names and your answers to the questions marked by QS questions here!
 
 Q1.1:
+The ReflexAgent in multiAgents.py selects actions based on an evaluation function 
+that considers the successor game state after taking an action. Initially, the agent 
+only used the game score, but I improved it by using food distance, number of remain 
+food, ghost distance, and power capsule distance to make more strategic decisions. 
+The enhanced agent prioritizes eating nearby food, avoids dangerous ghosts, and 
+actively seeks power capsules when necessary.
 
 Q1.2:
-
-
+My value function estimates how good a game state is. The return value is based on 
+the score. I subtract the minimum food distance from the score to make pacman move
+to food which makes it keeps positive score. Also, I subtract the number of remain 
+foods from the score to pacman actively eat the last foods because I saw that pacman 
+takes so long time to eat last one or two foods. I add the minimum ghost distance to 
+the score. If ghost is dangerous add small value and if ghost is scared add bigger value.
+It will make pacman to avoid the dangereous ghosts to keep positive score Additionally, 
+If dangereous ghost is too close, I give penalty. I also subtract the minimum capsule 
+distance from the score to make the pacman move to capsule actively to keep positive 
+score. This makes sense because pacman needs to eat all the food while avoiding ghosts, 
+and this evaluation helps the pacman moves smarter way to win the game.
 
 
 Q2.1:

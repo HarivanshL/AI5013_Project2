@@ -160,36 +160,48 @@ class MinimaxAgent(MultiAgentSearchAgent):
         Returns whether or not the game state is a losing state
         """
         "*** YOUR CODE HERE ***"
-        def minimax(gameState, depth, agentIndex):
+        def minimax(gameState: GameState, depth, agentIndex):
+            # if depth reached to max depth or game is end return the score
             if depth == self.depth or gameState.isWin() or gameState.isLose():
                 return self.evaluationFunction(gameState)
             
+            # Pacman's turn
             if agentIndex == 0:
                 value = -float("inf")
-                return_action = None
+                best_action = None
+                # search all possible actions
                 for action in gameState.getLegalActions(agentIndex):
                     successor = gameState.generateSuccessor(agentIndex, action)
-                    next_value = minimax(successor, depth, agentIndex+1)
+                    next_value = minimax(successor, depth, agentIndex+1) # move to ghosts' turn
                     if next_value > value:
                         value = next_value
-                        return_action = action
-                
+                        best_action = action
+
+                # if depth is 0 return the best action
                 if depth == 0:
-                    return return_action
+                    return best_action if best_action is not None else Directions.STOP
 
                 return value
-            
+            # Ghosts' turn
             else:
                 value = float("inf")
+                next_agent = agentIndex + 1
+
+                # if it is the last ghost, next will be pacman's turn. increase the depth
+                if next_agent == gameState.getNumAgents():
+                    next_agent = 0
+                    depth += 1
+
+                # search all possible actions
                 for action in gameState.getLegalActions(agentIndex):
                     successor = gameState.generateSuccessor(agentIndex, action)
-                    if agentIndex + 1 == gameState.getNumAgents():
-                        value = min(value, minimax(successor, depth, 0))
-                    else:
-                        value = min(value, minimax(successor, depth, agentIndex + 1))
+                    value = min(value, minimax(successor, depth, next_agent)) # move to next agnet's tunr (it could be ghost or pacman)
+                    
                 return value
-            
-            
+        
+        return minimax(gameState, 0, 0)
+
+
 class AlphaBetaAgent(MultiAgentSearchAgent):
     """
     Your minimax agent with alpha-beta pruning (question 3)

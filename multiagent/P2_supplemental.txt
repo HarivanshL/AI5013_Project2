@@ -49,7 +49,9 @@ in the same tree, but with pruning some of the branches are cut off and
 the resultin best actions are still the same. It just saves more time.
 
 Q3.2
-
+We break a tie by still exploring that branch of tree. We only prune if it 
+the value is strictly greater than beta for pacmans turn, or strictly less 
+than alpha for the ghosts turn
 
 
 Q4.1:

@@ -43,6 +43,10 @@ in one of the autograder instances.
 
 
 Q3.1:
+The values are identical because the alpha beta pruning only does not 
+explore nodes it thinks are unnecessary. So originally it would result 
+in the same tree, but with pruning some of the branches are cut off and 
+the resultin best actions are still the same. It just saves more time.
 
 Q3.2
 

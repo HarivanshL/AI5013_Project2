@@ -1,5 +1,9 @@
 Please Enter your team's full names and your answers to the questions marked by QS questions here!
 
+Team:
+Dohyeong Park
+Harivansh Luchmun
+
 Q1.1:
 The ReflexAgent in multiAgents.py selects actions based on an evaluation function 
 that considers the successor game state after taking an action. Initially, the agent 
@@ -22,7 +26,17 @@ score. This makes sense because pacman needs to eat all the food while avoiding 
 and this evaluation helps the pacman moves smarter way to win the game.
 
 
-Q2.1:
+Q2.1: 
+This algorithm creates a minimax agent that evaluates the actions of both pacman and 
+the ghosts. They take turns choosing and action. Pacman tries to actively maximize 
+his score while the ghosts try to minimize his score. Essentially the algorithm works 
+by recursively, by calling the next agent or agents. Either it is the ghosts or pacman.
+This creates a tree and the ghosts try to pick the minimum value at each of their 
+levels while pacman chooses the best value at each of its levels. The algorithm stops 
+when the depth of the tree is 0, meaning the game has been solved. We think the 
+algorithm is working because it actively avoids ghosts and pacman also loses the game 
+in one of the autograder instances.
+
 
 
 

@@ -33,7 +33,7 @@ his score while the ghosts try to minimize his score. Essentially the algorithm 
 by recursively, by calling the next agent or agents. Either it is the ghosts or pacman.
 This creates a tree and the ghosts try to pick the minimum value at each of their 
 levels while pacman chooses the best value at each of its levels. The algorithm stops 
-when the depth of the tree is 0, meaning the game has been solved. We think the 
+when the depth of the tree is 0 or pacanl loses, meaning the game has been solved. We think the 
 algorithm is working because it actively avoids ghosts and pacman also loses the game 
 in one of the autograder instances.
 
@@ -55,7 +55,13 @@ than alpha for the ghosts turn
 
 
 Q4.1:
-
+The expectimax works similar to the minimax algorithm, but it factors in the 
+possibility that the ghosts will not make the most optimal move. It works recursively 
+and pacman gets a turn then the ghosts. The ghosts try to minimize pacmans actions 
+while pacman tries to maximize. The game ends when the depth of the tree is 0 or pacman loses. 
+In this algorithm, at each level of ghosts decision, the min agent takes the average of 
+all future actions from the node and computes that as that nodes value. This ensures a 
+expectimax algorithm.
 
 Q5.1:
 

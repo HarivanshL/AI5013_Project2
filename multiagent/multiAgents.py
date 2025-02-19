@@ -334,7 +334,69 @@ def betterEvaluationFunction(currentGameState: GameState):
     DESCRIPTION: <write something here so we know what you did>
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    #util.raiseNotDefined()
+
+    #Evaluate states instead of factions
+
+    #Ditsance to closest food
+    #Distance to active ghosts
+    #Distance to inactive ghosts
+    #Distance to capsules
+
+    
+
+    "*** YOUR CODE HERE ***"
+    #Current score
+    current_score = currentGameState.getScore()
+
+    #Pacman state
+    pacman_pos= currentGameState.getPacmanPosition()
+
+    #Food calculations
+    
+    current_food = currentGameState.getFood()
+    food_list = current_food.asList()
+    if not food_list:
+        return float("inf")
+    food_distances = [manhattanDistance(pacman_pos, food) for food in food_list]
+    closest_food = min(food_distances)
+
+    #Ghost calculations
+    current_ghost_states = currentGameState.getGhostStates()
+
+    #Scared ghosts
+    currentScaredGhosts = [ghostState for ghostState in current_ghost_states if ghostState.scaredTimer]
+    #Not scared ghosts
+    currentNonScaredGhosts = [ghostState for ghostState in current_ghost_states if not ghostState.scaredTimer]
+
+
+    min_scared_distance =0
+    # distance from the closest scared ghost to pacman
+    if len(currentScaredGhosts) >0:
+        min_scared_distance = min(manhattanDistance(pacman_pos, ghost.getPosition()) for ghost in currentScaredGhosts)
+    
+    min_not_scared_distance = 0
+    if len(currentNonScaredGhosts) >0:
+    # distance from the closest not scared ghost to pacman
+        min_not_scared_distance = min(manhattanDistance(pacman_pos, ghost.getPosition()) for ghost in currentNonScaredGhosts)
+
+    # if pacman is too close to dangereous ghost, give penalty
+    if min_scared_distance < 3 and currentScaredGhosts == 0:
+        return -float("inf")
+    
+    newCapsules = currentGameState.getCapsules()
+    # distance from the closest capsule to pacman
+    min_capsule_distance = 0
+    if newCapsules:
+        min_capsule_distance = min(manhattanDistance(pacman_pos, capsule) for capsule in newCapsules)
+
+    return (current_score
+            - closest_food * 2 # smaller distance from food is better
+            - min_scared_distance * 2
+            - min_not_scared_distance * 4 # larger distance from ghost is better. if ghost is scared add more score
+            - len(food_list) * 20 # make pacman eat food actively when there is a few food left
+            - min_capsule_distance * 5 # smaller distance from capsule is better
+            )
 
 # Abbreviation
 better = betterEvaluationFunction

@@ -332,18 +332,18 @@ def betterEvaluationFunction(currentGameState: GameState):
     evaluation function (question 5).
 
     DESCRIPTION: <write something here so we know what you did>
+    Evaluation function for Pacman’s current state.
+
+    This function scores a game state based on several factors:
+        - Encourages eating food by penalizing distance to the closest food and reducing score as food decreases.
+        - Avoids dangerous ghosts by applying a heavy penalty if too close.
+        - Accounts for scared ghosts, encouraging chasing them when beneficial.
+        - Encourages collecting capsules by penalizing distance to the nearest capsule.
     """
     "*** YOUR CODE HERE ***"
     #util.raiseNotDefined()
 
-    #Evaluate states instead of factions
-
-    #Ditsance to closest food
-    #Distance to active ghosts
-    #Distance to inactive ghosts
-    #Distance to capsules
-
-    
+    #Evaluate states instead of actions
 
     "*** YOUR CODE HERE ***"
     #Current score

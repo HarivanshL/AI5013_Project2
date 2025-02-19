@@ -64,5 +64,12 @@ all future actions from the node and computes that as that nodes value. This ens
 expectimax algorithm.
 
 Q5.1:
+This evaluation function is similar to the last evaluation function. It still factors 
+in when the ghosts are scared or not scared, the distance to capsules, ghosts, and food. 
+It also factors in how much food and capsules are left. This function is better because 
+it places a larger penalty on ghosts that are not scared and close. This function also 
+assigns 0 to one of the distances for the ghosts based on if they are scared or not. This 
+helps us to not factor it in picking the best path.
+
 
 
